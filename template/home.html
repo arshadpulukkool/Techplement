@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+    <title>EasyCalc</title>
+</head>
+<body>
+    <div class="back-image">
+       <img src="{% static 'css/bk.png' %}" alt="background image">
+    </div>
+    <section class="left">
+        <section class="side login">
+            <p class="title">Not an account?</p>
+            <p class="message">TO KEEP TRACK OF YOUR CALCULATIONS AND ACCESS YOUR HISTORY</p>
+            <button>Register</button>
+            <img src="./images/reg_back.svg" alt="">
+        </section>
+        <section class="main register">
+            <div class="container">
+                <p class="title">Register</p>
+                <form method="post" enctype="multipart/form-data" action="reg">
+                    {% csrf_token %}
+                    <div class="form-control">
+                        <input type="text" name="firstname" placeholder="Firstname" required>
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="form-control">
+                        <input type="text" name="lastname" placeholder="Lastname" required>
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="form-control">
+                        <input type="text" name="username" placeholder="Username" required>
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="form-control">
+                        <input type="password" name="pass1" placeholder="Password" required>
+                        <i class="fas fa-unlock"></i>
+                    </div>
+                    <div class="form-control">
+                        <input type="password" name="pass2" placeholder="Confirm password" required>
+                        <i class="fas fa-lock"></i>
+                    </div>
+
+                    <button class="submit">Register</button>
+                </form>
+                {% if messages %}
+{% for message in messages %}
+{{message}}
+{% endfor %}
+{% endif %}
+            </div>
+        </section>
+    </section>
+
+    <section class="right">
+
+        <section class="side register">
+            <p class="title">Already registered?</p>
+            <p class="message">LET THE CALCULATION BEGINS</p>
+            <button>Login</button>
+        </section>
+
+        <section class="main login">
+            <div class="container">
+                <p style="color:grey;" class="title">EasyCalc</p>
+                <p style="font-size:25px;" class="title">Login</p>
+                <form method="post" enctype="multipart/form-data" action="/login">
+                    {% csrf_token %}
+                    <div class="form-control">
+                        <input type="text" name="username" placeholder="Username" required>
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="form-control">
+                        <input type="password" name="password" placeholder="Password" required>
+                        <i class="fas fa-unlock"></i>
+                    </div>
+
+                    <button class="submit">Login</button>
+
+                </form>
+                <a style="text-decoration:none; color:blue;" href="{% url 'anonymous' %}">No login ? Try</a>
+                {% if messages %}
+
+                {% for message in messages %}
+                {{message}}
+
+                {% endfor %}
+                {% endif %}
+            </div>
+        </section>
+
+    </section>
+
+    <script>
+        var sideButtons = document.querySelectorAll('.side button');
+        sideButtons.forEach(btn => btn.addEventListener('click', () => {
+            document.body.classList.toggle('signup');
+        }))
+    </script>
+
+</body>
+</html>
